@@ -10,8 +10,10 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
+      // console.log(action.payload);
+      // console.log("Toolkit Login: ", { state });
       state.status = true;
-      state.userData = action.payload.userData;
+      state.userData = action.payload;
     },
 
     logout: (state) => {

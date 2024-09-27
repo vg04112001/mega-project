@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import authService from "./appwrite/auth";
 import { login, logout } from "./store/features/authSlice";
 import { Header, Footer } from "./components/index";
+import { Outlet } from "react-router-dom";
 
 function App() {
   // console.log(import.meta.env.VITE_SOME_KEY);
@@ -14,6 +15,7 @@ function App() {
     authService
       .getCurrentUser()
       .then((userData) => {
+        // console.log("Main App: ", userData);
         if (userData) {
           dispatch(login(userData));
         } else {
@@ -26,12 +28,14 @@ function App() {
   }, []);
   return !loading ? (
     <>
-      <div className="min-h-screen flex flex-wrap content-between bg-gray-400">
-        <div className="w-full block">
-          <Header />
-          <main>{/* TODO:- <Outlet/> */}</main>
-          <Footer />
-        </div>
+      <div className="min-h-screen w-full flex flex-col content-between bg-gray-400">
+        {/* <div className="w-full block"> */}
+        <Header />
+        <main>
+          <Outlet />
+        </main>
+        <Footer />
+        {/* </div> */}
       </div>
     </>
   ) : null;
