@@ -2,17 +2,21 @@ import { useEffect, useState } from "react";
 import databaseService from "../appwrite/database";
 import { Container } from "../components/index";
 import { PostCard } from "../components/index";
+import { useSelector } from "react-redux";
 
 function Home() {
   const [posts, setPosts] = useState([]);
+  const authStatus = useSelector((state) => state.auth.status);
 
   useEffect(() => {
-    databaseService.getPosts().then((posts) => {
+    databaseService.getPosts([]).then((posts) => {
       if (posts) {
         setPosts(posts.documents);
+      } else {
+        setPosts([]);
       }
     });
-  }, []);
+  }, [authStatus]);
 
   if (posts.length === 0) {
     return (

@@ -12,7 +12,6 @@ function AllPosts() {
       .getPosts([Query.equal("userId", userData.$id)])
       .then((posts) => {
         if (posts) {
-          console.log(posts.documents);
           setPosts(posts.documents);
         }
       });
